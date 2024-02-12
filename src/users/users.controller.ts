@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Body, Patch, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Patch, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -21,19 +23,19 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOne(id);
   }
   @Post()
-  create(@Body() user:{ name: string, email: string, role: "INTERN" | "ENGINEER" | "ADMIN"; }) {
-    return this.usersService.create(user);
+  create(@Body() CreateUserDto: CreateUserDto) {
+    return this.usersService.create(CreateUserDto);
   }
   @Patch(':id')
-  update(@Param('id') id: string, @Body() userUpdate: { name?: string, email?: string, role?: "INTERN" | "ENGINEER" | "ADMIN"; }) {
-    return this.usersService.update(+id, userUpdate);
+  update(@Param('id', ParseIntPipe) id: number, @Body() UpdateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, UpdateUserDto);
   }
   @Delete(':id')
-    delete(@Param('id') id: string) {
-    return this.usersService.delete(+id);
+    delete(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.delete(id);
   }
 }
