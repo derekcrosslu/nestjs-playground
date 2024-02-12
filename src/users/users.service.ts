@@ -34,7 +34,7 @@ export class UsersService {
       return user;
     }
     );
-    return this.findOne(id);
+    return this.users.find(user => user.id === id);
   }
   delete(id:number){
     const removedUser = this.findOne(id);
