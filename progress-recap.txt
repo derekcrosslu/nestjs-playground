@@ -1,0 +1,3 @@
+1) created dtos which is similar to ts types or interfaces
+2) learned pipes which is a type of middleware
+3) learned handling errors and exceptions when dealing with endpoints and queries
