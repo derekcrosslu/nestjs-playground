@@ -23,7 +23,8 @@ export class UsersService {
     getUsers() { 
       return this.prisma.user.findMany({
         include: {
-            userSetting: true
+          userSetting: true,
+          
           }
         });
       }
